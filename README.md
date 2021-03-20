@@ -29,3 +29,9 @@ mvn package
 mvn spring-boot:run
 ```
 
+To run use following commands in ```frontend``` folder
+
+```
+npm install
+npm start
+```
