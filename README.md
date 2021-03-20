@@ -29,4 +29,3 @@ mvn package
 mvn spring-boot:run
 ```
 
-When app is up and running visit ```http://localhost:portToSetUpFrontEndOn/home```
