@@ -8,10 +8,16 @@ const styles = (theme) => ({
 	appBar: {
 		zIndex: theme.zIndex.drawer + 1,
 		background: 'linear-gradient(60deg, #0075c6 40%, #13929a 60%)',
-		height: '9vh',
-		paddingTop: '1.5vh',
+		//height: '9vh',
+		paddingTop: '15px',
 		alignItems: 'center',
+    height: '100px'
 	},
+  logo: {
+    display: 'block',
+    //width: 'auto',
+    height: '75px'
+  },
     toolbar: theme.mixins.toolbar
   });
 
@@ -23,14 +29,21 @@ const styles = (theme) => ({
         return(
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                <img src={logo} alt="flightSimulator" height="80vh"/>
+                <img src={logo} className={classes.logo} alt="flightSimulator"/>
             </Toolbar>
         </AppBar>
         )
     }
   }
 
-  export default withStyles(styles)(Navbar);
+export default withStyles(styles)(Navbar);
+
+
+
+
+
+
+
 
 
 

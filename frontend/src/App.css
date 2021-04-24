@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background: azure;
+  background: whitesmoke;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -8,4 +8,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+.Map {
+  margin-left: 240px;
 }
