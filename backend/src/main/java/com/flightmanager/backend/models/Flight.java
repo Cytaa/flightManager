@@ -1,9 +1,11 @@
 package com.flightmanager.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+
 
 @Entity
 @Table(name = "Flight")
@@ -18,6 +20,13 @@ public class Flight {
 
     private Date date;
 
+    @JsonManagedReference
+    @ManyToOne()
+    Destination destination;
+
+    @OneToOne
+    @JsonManagedReference
+    Plane plane;
 
     public Flight() {
     }

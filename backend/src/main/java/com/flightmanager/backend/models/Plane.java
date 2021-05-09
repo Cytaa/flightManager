@@ -26,4 +26,15 @@ public class Plane {
         this.manufacturer = manufacturer;
         this.type = type;
     }
+
+    @OneToOne(mappedBy = "plane", optional = false)
+    private Flight flight;
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
 }

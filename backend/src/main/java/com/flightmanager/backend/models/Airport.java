@@ -1,9 +1,14 @@
 package com.flightmanager.backend.models;
 
 
+import antlr.collections.impl.LList;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,14 +23,18 @@ public class Airport {
 
     private String country;
 
-    private Long destinations;
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Destination destinations;
 
-    public Airport() {
-    }
-
-    public Airport(String name, String country, Long destinations) {
+    public Airport(String name, String country, Destination destinations) {
         this.name = name;
         this.country = country;
         this.destinations = destinations;
     }
+
+    public Airport() {
+
+    }
 }
+
