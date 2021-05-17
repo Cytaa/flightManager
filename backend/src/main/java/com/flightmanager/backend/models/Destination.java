@@ -1,11 +1,12 @@
 package com.flightmanager.backend.models;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "Destinations")
@@ -28,11 +29,9 @@ public class Destination {
     public Destination() {
     }
 
-    @JsonManagedReference
     @OneToMany()
     private List<Flight> flights = new ArrayList<>();
 
-    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "destinations")
     private Collection<Airport> airport;
 

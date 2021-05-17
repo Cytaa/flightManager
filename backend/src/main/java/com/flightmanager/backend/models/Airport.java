@@ -1,14 +1,10 @@
 package com.flightmanager.backend.models;
 
 
-import antlr.collections.impl.LList;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Data
 @Entity
@@ -23,7 +19,6 @@ public class Airport {
 
     private String country;
 
-    @JsonManagedReference
     @ManyToOne(cascade = CascadeType.ALL)
     private Destination destinations;
 

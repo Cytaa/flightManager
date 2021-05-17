@@ -27,7 +27,7 @@ public class Plane {
         this.type = type;
     }
 
-    @OneToOne(mappedBy = "plane", optional = false)
+    @OneToOne(mappedBy = "plane", optional = true)
     private Flight flight;
 
     public Flight getFlight() {
