@@ -1,5 +1,6 @@
 package com.flightmanager.backend.controllers;
 
+import com.flightmanager.backend.models.Destination;
 import com.flightmanager.backend.models.Plane;
 import com.flightmanager.backend.services.AirportService;
 import com.flightmanager.backend.services.DestinationService;
@@ -33,5 +34,9 @@ public class MainController {
         return planeService.getAllPlanes();
     }
 
+    @GetMapping("/destinstions")
+    public List<Destination> getAllDestinations(){
+        return destinationService.getAllDestinations();
+    }
 
 }

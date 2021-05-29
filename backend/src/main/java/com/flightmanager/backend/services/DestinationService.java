@@ -14,7 +14,7 @@ public class DestinationService {
         this.destinationRepo = destinationRepo;
     }
 
-    private List<Destination> getAllDestinations(){
+    public List<Destination> getAllDestinations(){
         return destinationRepo.findAll();
     }
 
