@@ -44,7 +44,12 @@ export default function PermanentDrawerLeft() {
         anchor="left"
       >
         <div className={classes.toolbar} />
-
+        <TextField className={classes.textfield} label="From" variant="outlined" />
+        <br></br>
+        <Divider />
+        <TextField className={classes.textfield} label="To" variant="outlined" />
+        <br></br>
+        <Divider />
         <List>
           {['Example1', 'Example2'].map((text, index) => (
             <ListItem button key={text}>
@@ -54,16 +59,7 @@ export default function PermanentDrawerLeft() {
           ))}
         </List>
         <Divider />
-        <List>
-          {['Example3', 'Example4'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <TextField className={classes.textfield} label="Input example" variant="outlined" />
+        
       </Drawer>
 
     </div>
