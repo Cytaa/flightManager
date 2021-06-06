@@ -1,15 +1,14 @@
 package com.flightmanager.backend.controllers;
 
-import com.flightmanager.backend.models.Destination;
+import com.flightmanager.backend.models.Flight;
 import com.flightmanager.backend.models.Plane;
-import com.flightmanager.backend.services.AirportService;
-import com.flightmanager.backend.services.DestinationService;
+import com.flightmanager.backend.services.CityService;
 import com.flightmanager.backend.services.FlightService;
 import com.flightmanager.backend.services.PlaneService;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,15 +16,13 @@ import java.util.List;
 @RestController()
 public class MainController {
 
-    private final AirportService airportService;
-    private final DestinationService destinationService;
+    private final CityService cityService;
     private final FlightService flightService;
     private final PlaneService planeService;
 
     @Autowired
-    public MainController(AirportService airportService, DestinationService destinationService, FlightService flightService, PlaneService planeService) {
-        this.airportService = airportService;
-        this.destinationService = destinationService;
+    public MainController(CityService cityService, FlightService flightService, PlaneService planeService) {
+        this.cityService = cityService;
         this.flightService = flightService;
         this.planeService = planeService;
     }
@@ -34,9 +31,18 @@ public class MainController {
         return planeService.getAllPlanes();
     }
 
-    @GetMapping("/destinstions")
-    public List<Destination> getAllDestinations(){
-        return destinationService.getAllDestinations();
+    @PostMapping(value = "/getFlightsByDestination")
+    @ResponseBody
+    public List<Flight> getFlightsByDestination(@RequestBody JSONObject jsonObject){
+        return flightService.getFlightsByDestination(jsonObject.getAsString("destination"));
     }
+
+    @PostMapping(value = "/getFlightsByDeparture")
+    @ResponseBody
+    public List<Flight> getFlightsByDeparture(@RequestBody JSONObject jsonObject){
+        return flightService.getFlightsByDeparture(jsonObject.getAsString("destination"));
+    }
+
+
 
 }

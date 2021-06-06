@@ -5,6 +5,7 @@ import com.flightmanager.backend.repositories.FlightRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
@@ -16,7 +17,15 @@ public class FlightService {
     }
 
 
-    private List<Flight> getAllFlights(){
+    public List<Flight> getAllFlights(){
         return flightRepo.findAll();
+    }
+
+    public List<Flight> getFlightsByDestination(String destination){
+        return flightRepo.findAll().stream().filter(c -> c.getDestinationCity().getName().equals(destination)).collect(Collectors.toList());
+    }
+
+    public List<Flight> getFlightsByDeparture(String departure){
+        return flightRepo.findAll().stream().filter(c -> c.getStartingCity().getName().equals(departure)).collect(Collectors.toList());
     }
 }
