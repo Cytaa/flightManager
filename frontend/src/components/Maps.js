@@ -1,19 +1,34 @@
-import SimpleMaps from './SimpleMaps'
+import React, { Component } from 'react';
+import { Map, GoogleApiWrapper } from 'google-maps-react';
 
-
-function Maps() {
-  return (
-    <SimpleMaps />
-/*
-    <iframe
-      width="1800"
-      height="800"
-      loading="lazy"
-      allowfullscreen
-      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBt2koBO7oVDq6UybvDX6qNDTMyNNbJGO8&q=Space+Needle,Seattle+WA">
-    </iframe>
-*/
-  );
+const mapStyles = {
+  width: '100vw',
+  height: '100vh',
+  top: '0',
+  marginLeft: '0'
+};
+ 
+export class Maps extends Component {
+ 
+  render() {
+    return (
+      <div className="Map">
+        <Map
+        google={this.props.google}
+        zoom={14}
+        style={mapStyles}
+        initialCenter={
+          {
+            lat: 51.098603, 
+            lng: 17.028874
+          }
+        }
+        />
+      </div>
+    );
+  }
 }
-
-export default Maps;
+ 
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyC2GgQk1PGxJI2lj6hnseedAErLhzkrDKE'
+})(Maps);
