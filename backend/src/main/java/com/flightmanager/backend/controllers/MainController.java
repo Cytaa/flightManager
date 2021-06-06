@@ -40,7 +40,13 @@ public class MainController {
     @PostMapping(value = "/getFlightsByDeparture")
     @ResponseBody
     public List<Flight> getFlightsByDeparture(@RequestBody JSONObject jsonObject){
-        return flightService.getFlightsByDeparture(jsonObject.getAsString("destination"));
+        return flightService.getFlightsByDeparture(jsonObject.getAsString("departure"));
+    }
+
+    @PostMapping(value = "/getFlightsByDepartureAndDestination")
+    @ResponseBody
+    public List<Flight> getFlightsByDepartureAndDestination(@RequestBody JSONObject jsonObject){
+        return flightService.getFlightsByDepartureAndDestination(jsonObject.getAsString("departure"), jsonObject.getAsString("destination"));
     }
 
 

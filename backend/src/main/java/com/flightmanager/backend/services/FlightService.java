@@ -28,4 +28,8 @@ public class FlightService {
     public List<Flight> getFlightsByDeparture(String departure){
         return flightRepo.findAll().stream().filter(c -> c.getStartingCity().getName().equals(departure)).collect(Collectors.toList());
     }
+
+    public List<Flight> getFlightsByDepartureAndDestination(String departure, String destination){
+        return flightRepo.findAll().stream().filter(c -> c.getStartingCity().getName().equals(departure) && c.getDestinationCity().getName().equals(destination)).collect(Collectors.toList());
+    }
 }
