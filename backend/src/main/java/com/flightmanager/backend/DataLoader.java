@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 @Configuration
 @Slf4j
@@ -20,18 +24,64 @@ public class DataLoader {
     @Bean
     CommandLineRunner initDatabase(CityRepo cityRepo, FlightRepo flightRepo, PlaneRepo planeRepo){
         return args -> {
-            City city1 = new City("Warsaw", "Poland");
-            City city2 = new City("Berlin", "Germany");
+            List<City> allCities = new ArrayList<>();
+            allCities.add(new City("Warsaw", "Poland"));
+            allCities.add(new City("Berlin", "Germany"));
+            allCities.add(new City("Beijing", "China"));
+            allCities.add(new City("New Delhi", "India"));
+            allCities.add(new City("Moscow", "Russia"));
+            allCities.add(new City("Jakarta", "Indonesia"));
+            allCities.add(new City("Seoul", "South Korea"));
+            allCities.add(new City("Cairo", "Egypt"));
+            allCities.add(new City("Mexico City", "Mexico"));
+            allCities.add(new City("London", "United Kingdom"));
+            allCities.add(new City("Bangkok", "Thailand"));
+            allCities.add(new City("Santiago", "Chile"));
+            allCities.add(new City("Singapore", "Singapore"));
+            allCities.add(new City("Ankara", "Turkey"));
+            allCities.add(new City("Madrid", "Spain"));
+            allCities.add(new City("Rome", "Italy"));
+            allCities.add(new City("Kyiv", "Ukraine"));
+            allCities.add(new City("Paris", "France"));
 
-            cityRepo.save(city1);
-            cityRepo.save(city2);
+            allCities = cityRepo.saveAll(allCities);
 
-            Plane plane1 = new Plane("Manufacturer1", "Type1");
+            List<Plane> allPlanes = new ArrayList<>();
+            allPlanes.add(new Plane("Airbus", "A220"));
+            allPlanes.add(new Plane("Airbus", "A300"));
+            allPlanes.add(new Plane("Airbus", "A420"));
+            allPlanes.add(new Plane("Boeing", "747"));
+            allPlanes.add(new Plane("Boeing", "777"));
+            allPlanes.add(new Plane("Boeing", "404"));
+            allPlanes.add(new Plane("Boeing", "2137"));
+            allPlanes.add(new Plane("Bombardier", "Challenger 300"));
+            allPlanes.add(new Plane("Bombardier", "Challenger 600"));
+            allPlanes.add(new Plane("Embraer", "Phenom 100"));
+            allPlanes.add(new Plane("Embraer", "Phenom 300"));
+            allPlanes.add(new Plane("Tupolev", "Tu-104"));
+            allPlanes.add(new Plane("Tupolev", "Tu-144"));
 
-            planeRepo.save(plane1);
+            allPlanes = planeRepo.saveAll(allPlanes);
 
-            Flight flight1 = new Flight(Date.valueOf("2021-06-06"), city1, city2, plane1);
-            flightRepo.save(flight1);
+            Random rnd = new Random(1L);
+
+            int cityCount = allCities.size();
+            int planeCount = allPlanes.size();
+
+            long startDate = 1622505600000L; // 2021-06-01
+            long dateBounds = 10000000000L; // ~4 months
+            List<Flight> flights = new ArrayList<>();
+            for (int i = 0; i < 500; ++i) {
+                int fromCity = rnd.nextInt(cityCount);
+                int toCity = rnd.nextInt(cityCount - 1);
+                if (toCity == fromCity) toCity = cityCount - 1;
+                int usingPlane = rnd.nextInt(planeCount);
+                long date = ((rnd.nextLong() % dateBounds) + dateBounds) % dateBounds + startDate;
+
+                flights.add(new Flight(new Date(date), allCities.get(fromCity), allCities.get(toCity), allPlanes.get(usingPlane)));
+            }
+
+            flightRepo.saveAll(flights);
         };
     }
 }

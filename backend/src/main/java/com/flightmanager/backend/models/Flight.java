@@ -1,7 +1,5 @@
 package com.flightmanager.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,15 +17,13 @@ public class Flight {
 
     private Date date;
 
-    @JsonManagedReference
-    @ManyToOne()
+    @ManyToOne
     City startingCity;
 
     @ManyToOne
     City destinationCity;
 
-    @JsonBackReference
-    @OneToOne
+    @ManyToOne
     Plane plane;
 
     public Flight() {

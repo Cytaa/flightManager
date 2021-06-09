@@ -1,6 +1,5 @@
 package com.flightmanager.backend.models;
 
-
 import lombok.Data;
 
 import javax.persistence.*;
