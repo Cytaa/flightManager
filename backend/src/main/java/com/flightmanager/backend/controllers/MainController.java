@@ -1,5 +1,6 @@
 package com.flightmanager.backend.controllers;
 
+import com.flightmanager.backend.models.City;
 import com.flightmanager.backend.models.Flight;
 import com.flightmanager.backend.models.Plane;
 import com.flightmanager.backend.services.CityService;
@@ -26,29 +27,38 @@ public class MainController {
         this.flightService = flightService;
         this.planeService = planeService;
     }
+
     @GetMapping("/planes")
-    public List<Plane> getAllPlanes(){
+    public List<Plane> getAllPlanes() {
         return planeService.getAllPlanes();
+    }
+
+    @GetMapping("/cities")
+    public List<City> getAllCities() {
+        return cityService.getAllCities();
     }
 
     @PostMapping(value = "/getFlightsByDestination")
     @ResponseBody
-    public List<Flight> getFlightsByDestination(@RequestBody JSONObject jsonObject){
+    public List<Flight> getFlightsByDestination(@RequestBody JSONObject jsonObject) {
         return flightService.getFlightsByDestination(jsonObject.getAsString("destination"));
     }
 
     @PostMapping(value = "/getFlightsByDeparture")
     @ResponseBody
-    public List<Flight> getFlightsByDeparture(@RequestBody JSONObject jsonObject){
+    public List<Flight> getFlightsByDeparture(@RequestBody JSONObject jsonObject) {
         return flightService.getFlightsByDeparture(jsonObject.getAsString("departure"));
     }
 
     @PostMapping(value = "/getFlightsByDepartureAndDestination")
     @ResponseBody
-    public List<Flight> getFlightsByDepartureAndDestination(@RequestBody JSONObject jsonObject){
+    public List<Flight> getFlightsByDepartureAndDestination(@RequestBody JSONObject jsonObject) {
         return flightService.getFlightsByDepartureAndDestination(jsonObject.getAsString("departure"), jsonObject.getAsString("destination"));
     }
 
-
-
+    @PostMapping(value = "/getFlightsWithTransfer")
+    @ResponseBody
+    public List<List<Flight>> getFlightsWithTransfer(@RequestBody JSONObject jsonObject) {
+        return flightService.getFlightsWithTransfer(jsonObject.getAsString("departure"), jsonObject.getAsString("destination"));
+    }
 }
