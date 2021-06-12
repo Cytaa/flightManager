@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
@@ -9,8 +9,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Button from '@material-ui/core/Button';
 
-const drawerWidth = 240;
+const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -22,9 +23,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '45px'
   },
   textfield: {
-    width: '200px',
+    width: '310px',
     marginLeft: '20px',
     marginTop: '20px'
+  },
+  button: {
+    width: '150px'
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -32,6 +36,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PermanentDrawerLeft() {
   const classes = useStyles();
+  const [cityFrom, setCityFrom] = useState('');
+  const [cityTo, setCityTo] = useState('');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log('Flight: ', cityFrom, '-', cityTo); 
+    //downloading flights
+    //setting points on map
+  }
 
   return (
     <div className={classes.root}>
@@ -44,22 +57,16 @@ export default function PermanentDrawerLeft() {
         anchor="left"
       >
         <div className={classes.toolbar} />
-        <TextField className={classes.textfield} label="From" variant="outlined" />
+        <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+          <TextField className={classes.textfield} label="From" variant="outlined" id="city-from" onInput={ e=>setCityFrom(e.target.value)} />
+          <br></br>
+          <TextField className={classes.textfield} label="To" variant="outlined" id="city-to" onInput={ e=>setCityTo(e.target.value)} />
+          <br></br>
+          <br></br>
+          <center><Button className={classes.button} variant="contained" color="primary" type="submit">Send</Button></center>
+        </form>
         <br></br>
-        <Divider />
-        <TextField className={classes.textfield} label="To" variant="outlined" />
-        <br></br>
-        <Divider />
-        <List>
-          {['Example1', 'Example2'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        
+        <Divider />  
       </Drawer>
 
     </div>

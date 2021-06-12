@@ -15,12 +15,12 @@ export class Maps extends Component {
       <div className="Map">
         <Map
         google={this.props.google}
-        zoom={14}
+        zoom={2.5}
         style={mapStyles}
         initialCenter={
           {
-            lat: 51.098603, 
-            lng: 17.028874
+            lat: 40.098603, 
+            lng: -35.028874
           }
         }
         />
