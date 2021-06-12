@@ -9,13 +9,11 @@ const mapStyles = {
 };
 
 export class Maps extends Component {
-
-  showMeFrom=false;
-  shopMeTo=false;
-  latFrom=0;
-  latTo=0;
-  lngFrom=0;
-  lngTo=0;
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
   render() {
     return (
@@ -30,9 +28,9 @@ export class Maps extends Component {
             lng: -35.028874
           }
         }
-        >
-          {this.showMeFrom ?  <Marker position={{lat: this.latFrom, lng: this.lngFrom}} /> : null}
-          {this.showMeTo   ?  <Marker position={{lat: this.latTo, lng: this.lngTo}} /> : null}
+        > 
+          {this.props.markersData.showMeFrom ?  <Marker name={'2'} position={{lat: this.props.markersData.latFrom, lng: this.props.markersData.lngFrom}} /> : null}
+          {this.props.markersData.showMeTo   ?  <Marker name={'1'} position={{lat: this.props.markersData.latTo, lng: this.props.markersData.lngTo}} /> : null}
         </Map>
       </div>
     );

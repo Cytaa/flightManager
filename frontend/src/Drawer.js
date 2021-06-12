@@ -24,11 +24,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     width: '150px'
   },
-  // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
 }));
 
-export default function PermanentDrawerLeft() {
+export default function PermanentDrawerLeft(props) {
   const classes = useStyles();
   const [cityFrom, setCityFrom] = useState('');
   const [cityTo, setCityTo] = useState('');
@@ -59,13 +58,15 @@ export default function PermanentDrawerLeft() {
       ["Kyiv", 50.43844899677875, 30.579354405155126], 
       ["Paris", 48.85522356882381, 2.3443114744314175]
     ]
-
+    
     for (let i = 0; i < airports.length; i++) { 
-      if(cityFrom === airports[i][0] || cityTo === airports[i][0]){
-
-        console.log('Coordinates for ' + airports[i][0] + ': ' + airports[i][1], airports[i][2]) //współrzędne danego miasta
-        //set point
-
+      if(cityFrom === airports[i][0]){
+        console.log('Coordinates for ' + airports[i][0] + ': ' + airports[i][1], airports[i][2]) 
+        props.setFromMarkerData({showMeFrom: true, latFrom: airports[i][1], lngFrom: airports[i][2]})
+      } 
+      if(cityTo === airports[i][0]){
+        console.log('Coordinates for ' + airports[i][0] + ': ' + airports[i][1], airports[i][2]) 
+        props.setToMarkerData({showMeTo: true, latTo: airports[i][1], lngTo: airports[i][2]})
       } 
     } 
 
