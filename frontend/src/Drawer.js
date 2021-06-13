@@ -4,6 +4,7 @@ import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const drawerWidth = 350;
 
@@ -36,7 +37,42 @@ export default function PermanentDrawerLeft(props) {
     event.preventDefault();
     console.log('Flight: ', cityFrom, '-', cityTo); 
 
-    //get flights
+    var body = {
+      departure: cityFrom,
+      destination: cityTo
+    };
+  
+  axios.post('http://127.0.0.1:9999/getFlightsByDepartureAndDestination', body)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    /*
+    let data = {
+      "departure": JSON.stringify(cityFrom),
+      "destination": JSON.stringify(cityTo)
+    }
+
+    fetch('http://localhost:9999/getFlightsByDepartureAndDestination', {
+      body: data,
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST', 
+    })
+      .then(res => {console.log(res.body);})
+      .then(
+        (result) => {
+          console.log(result)
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    */
 
     const airports = [
       ["Warsaw", 52.230727, 21.045148], 
