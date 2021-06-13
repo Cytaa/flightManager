@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import planeIcon from './assets/plane-type-icon.png';
 
 const drawerWidth = 350;
 
@@ -28,51 +29,30 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
 }));
 
+
 export default function PermanentDrawerLeft(props) {
   const classes = useStyles();
   const [cityFrom, setCityFrom] = useState('');
   const [cityTo, setCityTo] = useState('');
+  const [flights, setFlights] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
     console.log('Flight: ', cityFrom, '-', cityTo); 
 
-    var body = {
+    let body = {
       departure: cityFrom,
       destination: cityTo
     };
   
   axios.post('http://127.0.0.1:9999/getFlightsByDepartureAndDestination', body)
     .then(function (response) {
-      console.log(response.data);
+      setFlights(response.data);
+      console.log('Flights:', response.data);
     })
     .catch(function (error) {
       console.log(error);
     });
-
-    /*
-    let data = {
-      "departure": JSON.stringify(cityFrom),
-      "destination": JSON.stringify(cityTo)
-    }
-
-    fetch('http://localhost:9999/getFlightsByDepartureAndDestination', {
-      body: data,
-      headers: {
-        'content-type': 'application/json'
-      },
-      method: 'POST', 
-    })
-      .then(res => {console.log(res.body);})
-      .then(
-        (result) => {
-          console.log(result)
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
-    */
 
     const airports = [
       ["Warsaw", 52.230727, 21.045148], 
@@ -128,7 +108,30 @@ export default function PermanentDrawerLeft(props) {
           <center><Button className={classes.button} variant="contained" color="primary" type="submit">Send</Button></center>
         </form>
         <br></br>
-        <Divider />  
+        <Divider />
+        <div>  
+          {flights.map(flight => (
+            <div key={flight.id}>
+              <div className="flightsList"> 
+                <div class="row">
+                  <div class="column">
+                    <span className="date">{(flight.date).slice(0,10)}</span><br />
+                    <span className="time">{(flight.date).slice(11,16)}</span><br />
+                  </div>
+                  <div class="column">
+                    <img src={planeIcon} alt="plane type" width="100px" height="25px"></img><br />
+                    <span className="plane">{flight.plane.manufacturer + ' ' + flight.plane.type}</span><br />
+                    <span className="countries">{'From: ' + flight.startingCity.country}</span><br />
+                    <span className="countries">{'To: ' + flight.destinationCity.country}</span><br />
+                  </div>
+                </div>
+               
+
+              </div>
+              <Divider />
+            </div>
+          ))}
+        </div>
       </Drawer>
 
     </div>
