@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RestController()
+@RestController
+@CrossOrigin
 public class MainController {
 
     private final CityService cityService;
