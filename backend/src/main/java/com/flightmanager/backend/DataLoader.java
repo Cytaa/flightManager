@@ -11,9 +11,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -71,14 +70,18 @@ public class DataLoader {
             long startDate = 1622505600000L; // 2021-06-01
             long dateBounds = 10000000000L; // ~4 months
             List<Flight> flights = new ArrayList<>();
+
+
+
             for (int i = 0; i < 500; ++i) {
                 int fromCity = rnd.nextInt(cityCount);
                 int toCity = rnd.nextInt(cityCount - 1);
                 if (toCity == fromCity) toCity = cityCount - 1;
                 int usingPlane = rnd.nextInt(planeCount);
                 long date = ((rnd.nextLong() % dateBounds) + dateBounds) % dateBounds + startDate;
+                date = (date / 60000) * 60000; // round (truncate) to minutes
 
-                flights.add(new Flight(new Date(date), allCities.get(fromCity), allCities.get(toCity), allPlanes.get(usingPlane)));
+                flights.add(new Flight(new Timestamp(date), allCities.get(fromCity), allCities.get(toCity), allPlanes.get(usingPlane)));
             }
 
             flightRepo.saveAll(flights);

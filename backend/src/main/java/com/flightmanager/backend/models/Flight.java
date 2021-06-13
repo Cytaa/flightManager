@@ -3,7 +3,7 @@ package com.flightmanager.backend.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -15,7 +15,7 @@ public class Flight {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date date;
+    private Timestamp date;
 
     @ManyToOne
     City startingCity;
@@ -29,7 +29,7 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(Date date, City startingCity, City destinationCity, Plane plane) {
+    public Flight(Timestamp date, City startingCity, City destinationCity, Plane plane) {
         this.date = date;
         this.startingCity = startingCity;
         this.destinationCity = destinationCity;
