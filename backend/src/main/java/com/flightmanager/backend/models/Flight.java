@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "Flight")
 @Data
-public class Flight {
+public class Flight{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,14 @@ public class Flight {
     public Flight() {
     }
 
+
+
     public Flight(Timestamp date, City startingCity, City destinationCity, Plane plane) {
         this.date = date;
         this.startingCity = startingCity;
         this.destinationCity = destinationCity;
         this.plane = plane;
     }
+
+
 }

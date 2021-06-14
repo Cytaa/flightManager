@@ -5,6 +5,7 @@ import com.flightmanager.backend.repositories.FlightRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -33,7 +34,7 @@ public class FlightService {
     }
 
     public List<Flight> getFlightsByDepartureAndDestination(String departure, String destination){
-        return flightRepo.findAll().stream().filter(c -> c.getStartingCity().getName().equals(departure) && c.getDestinationCity().getName().equals(destination)).collect(Collectors.toList());
+        return flightRepo.findAll().stream().filter(c -> c.getStartingCity().getName().equals(departure) && c.getDestinationCity().getName().equals(destination)).sorted(Comparator.comparing(Flight::getDate)).collect(Collectors.toList());
     }
 
     public List<List<Flight>> getFlightsWithTransfer(String departure, String destination) {
